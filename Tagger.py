@@ -1,6 +1,21 @@
 import xlrd
 import xlwt
-path = "C:\\Tagger\\Исходник.xls"
+def Path_definer():
+    global path
+    GotAnswer = False
+    while GotAnswer == False:
+        IQ = input("Файл находится по стандартному пути и имеет стандартное название? \nY\\N\n")
+        if IQ.upper() == "Y":
+            GotAnswer = True
+            path = r'C:\Users\Admin\Downloads\TGR.xls'
+            break
+        if IQ.upper() == "N":
+            GotAnswer = True
+            path = r'%s' % (input("Вставьте путь до файла:"))
+            break
+        else:
+            print("Пожалуйста, ответьте утвердительно или отрицательно используя буквы 'Y' 'N'!")
+Path_definer()
 workbook = xlrd.open_workbook(path)
 workbookw = xlwt.Workbook()
 sheet = workbook.sheet_by_index(0)
@@ -124,4 +139,6 @@ for x in xlist:
 	info = sheet.cell_value(x, y)
 	sheet1.write(x, y, info)
 
-workbookw.save("C:\\Tagger\\Taggered.xls")
+workbookw.save(path)
+print(path)
+print("Файл обработан.")
